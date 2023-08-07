@@ -1,3 +1,4 @@
+import sys
 import time
 import wis_core
 import tkinter as tk
@@ -5,20 +6,32 @@ from custom_logging import Log
 
 
 
+class Player:
+    def __init__(self, game, as_a_spy_agent=False):
+        self.game = game
+        self.as_a_spy_agent = as_a_spy_agent
+
+
 class WhoIsSpyGui:
     def __init__(self) -> None:
-        self._n = 0
         self.controls = dict()
         self.win = tk.Tk()
         self.words = []
         self.nop = 3
-        self.controls["mainLbl"] = tk.Label(self.win, text="欢迎来到单机【谁是卧底】", fg="brown", font=("黑体", 100))
-        self.controls["mainBtn"] = tk.Button(self.win, text="点击开始", command=self.start_new_game, font=("微软雅黑", 50))
+        self.ready_new_game()
 
         self.layout()
+
+    def ready_new_game(self):
+        self._n = 0
+        self.controls["mainLbl"] = tk.Label(self.win, text="欢迎来到单机【谁是卧底】", fg="brown", font=("黑体", 100))
+        self.controls["mainBtn"] = tk.Button(self.win, text="点击开始", command=self.start_new_game,
+                                             font=("微软雅黑", 50))
         
     def start_new_game(self):
-        self.words = wis_core.distribute_words(nop=self.nop)[0]
+        w = wis_core.distribute_words(nop=self.nop)
+        self.words = w[0]
+        self.spy_word = w[1]
         self.show_words()
 
     # 第一步：分词
@@ -50,9 +63,28 @@ class WhoIsSpyGui:
             self.controls["mainLbl"].config(text=f"你是{self._n+2}号玩家")
         else:
             self.controls["mainLbl"].config(text=f"分词结束，开始讨论")
+            self.controls["mainBtn"].config(text=f"讨论完了开始投票", command=self.voting)
         self._closeword_wait_sign.set(1)
 
+    # 第二步：投票
+    def voting(self):
+        self.voting_buttons = dict()
+        self._vote_n = 0
+        self._voted_wait_sign = tk.IntVar()
+        for self._vote_n in range(0, self.nop):
+            self._voted_wait_sign.set(0)
+            self.voting_buttons[self._vote_n] = tk.Button(text=f"投{self._vote_n+1}号", command=self.vote_sb)
+            self.voting_buttons[self._vote_n].pack()
 
+    def vote_sb(self):
+        Log(f"SPY_WORD: {self.spy_word}, n: {self._vote_n}")
+        if self.words[self._vote_n] == self.spy_word:
+            self.controls["mainLbl"].config(text=f"{self._vote_n+1}号是卧底，平民胜利！卧底词：{self.spy_word}\n5秒后自动退出")
+            time.sleep(5)
+            sys.exit()
+        else:
+            self.controls["mainLbl"].config(text=f"{self._vote_n+1}号是平民")
+            self._voted_wait_sign.set(1)
 
     def layout(self) -> int:
         layout_controls_number = 0

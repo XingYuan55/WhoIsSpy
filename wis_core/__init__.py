@@ -1,5 +1,6 @@
 import random
 import os
+import spyword
 
 
 __default_words = [  # 原始词数据
