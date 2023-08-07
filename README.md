@@ -38,3 +38,19 @@
 4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
 5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
 6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+
+##### 开发周期
+1. 总Pre-Alpha
+2. 总Alpha
+3. Beta 1.0（1.0测试）
+4. rc1.0（1.0预发布）
+5. Release1.0
+6. Beta <下一版>
+7. （如果下一版是次要更新）Release <更新好的”下一版“>；（如果下一版是主要更新）rc <预发布的主要更新”下一版“>
+（如果即将发布的是主要更新）：
+   8.  Release <更新好的主要更新”下一版“>
+
+##### 提交规范
+1. 实验性的，或将来要添加的，或正在不稳定开发，随时可能出现bug的特性快照，提交到feature/分支；
+2. 添加好的功能，这一功能模块已经没有问题的，但需要等待其他模块完成才能发布为版本的开发快照，提交到develop/分支；
+3. 多个功能已经开发好的，可以较为稳定地运行的，马上或立即可以作为版本发布的，提交到主master/分支。
