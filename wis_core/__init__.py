@@ -28,7 +28,7 @@ __default_words = [  # 原始词数据
     ]
 
 def distribute_words(words: list = __default_words, nop=3):
-    num = 3  # 人数
+    num = nop # 人数
     treatmented_words = []  # 可识别词
     for i in words:
         treatmented_words += (i.split("——"),)
