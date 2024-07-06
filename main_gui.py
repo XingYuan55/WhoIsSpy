@@ -5,13 +5,6 @@ import tkinter as tk
 from custom_logging import Log
 
 
-
-class Player:
-    def __init__(self, game, as_a_spy_agent=False):
-        self.game = game
-        self.as_a_spy_agent = as_a_spy_agent
-
-
 class WhoIsSpyGui:
     def __init__(self) -> None:
         self.controls = dict()
@@ -68,12 +61,20 @@ class WhoIsSpyGui:
 
     # 第二步：投票
     def voting(self):
+        try:
+            del self.voting_buttons
+        except:
+            pass
         self.voting_buttons = dict()
         self._vote_n = 0
         self._voted_wait_sign = tk.IntVar()
+        self.had_voted = []
+        for i in range(0, self.nop):
+            self.had_voted += 0
         for self._vote_n in range(0, self.nop):
             self._voted_wait_sign.set(0)
-            self.voting_buttons[self._vote_n] = tk.Button(text=f"投{self._vote_n+1}号", command=self.vote_sb)
+            # TODO: 按按钮时投票，并将被投这个人的编号传给vote_sb
+            self.voting_buttons[self._vote_n] = tk.Button(text=f"投{self._vote_n+1}号", command=...)
             self.voting_buttons[self._vote_n].pack()
 
     def vote_sb(self):
@@ -96,7 +97,10 @@ class WhoIsSpyGui:
 
 
 
-            
+def find_val_from_key_in_a_dict(dic: dict, val):
+    for i in dic:
+        if dic[i] == val:
+            return i
         
 if __name__ == "__main__":
     whoisspygui = WhoIsSpyGui()
