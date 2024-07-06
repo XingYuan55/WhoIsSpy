@@ -17,7 +17,7 @@ class WhoIsSpyGui:
         self.controls = dict()
         self.win = tk.Tk()
         self.words = []
-        self.nop = 3
+        self.nop = 5
         self.ready_new_game()
 
         self.layout()
