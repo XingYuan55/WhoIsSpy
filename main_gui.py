@@ -70,7 +70,7 @@ class WhoIsSpyGui:
         self._voted_wait_sign = tk.IntVar()
         self.had_voted = []
         for i in range(0, self.nop):
-            self.had_voted += 0
+            self.had_voted.append(0)
         for self._vote_n in range(0, self.nop):
             self._voted_wait_sign.set(0)
             # TODO: 按按钮时投票，并将被投这个人的编号传给vote_sb
@@ -92,6 +92,7 @@ class WhoIsSpyGui:
 
         for control in self.controls.values():
             control.pack()
+            layout_controls_number += 1
             
         self.win.mainloop()
 
